@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Card from './Card'
+import DailyContainer from './DailyContainer'
 
 const HomeStyle = styled.div`
 background: white;
@@ -9,6 +9,7 @@ background: white;
 function Home() {
     return (
         <HomeStyle>
+            <DailyContainer></DailyContainer>
         </HomeStyle>
     )
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import Home from './components/Home'
-import TopNav from './components/TopNav'
+import HomeHeader from './components/HomeHeader'
 import './App.css';
 
 function App() {
   return (
     <div>
-      <TopNav></TopNav>
+      <HomeHeader></HomeHeader>
       <Home></Home>
     </div>
   );

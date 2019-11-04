@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const TopNavStyled = styled.div`
+const HomeHeaderStyled = styled.div`
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -28,11 +28,11 @@ justify-self: flex-start;
 function TopNav() {
 
     return (
-        <TopNavStyled>
+        <HomeHeaderStyled>
             <Title>NHL Fantasy</Title>
             <Buttons>Login</Buttons>
             <Buttons>Register</Buttons>
-        </TopNavStyled>
+        </HomeHeaderStyled>
     )
 }
 
