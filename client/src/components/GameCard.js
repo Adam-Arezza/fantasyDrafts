@@ -1,13 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 
-const GameCardStyled = styled.div`
-
-`
-
-function GameCard(props){
+function GameCard(props) {
+    if (!props.gameData) {
+        return (
+            <div>
+                NO DATA
+            </div>
+        )
+    }
     return (
-        <GameCardStyled></GameCardStyled>
+        <div>
+            <p>{props.gameData}</p>
+        </div>
     )
 }
 
