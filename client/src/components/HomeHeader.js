@@ -27,6 +27,12 @@ justify-self: flex-start;
 
 function TopNav() {
 
+    // function login() {
+
+    // }
+    // function register() {
+
+    // }
     return (
         <HomeHeaderStyled>
             <Title>NHL Fantasy</Title>
