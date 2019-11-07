@@ -9,9 +9,11 @@ flex-direction: row;
 flex-wrap: wrap;
 align-items; center;
 justify-content: center;
+padding: 10px;
+margin: 10px;
 `
 
-const MoreBtn = styled.button`
+const ToggleBtn = styled.button`
 background: black;
 color: white;
 border-radius: 5px;
@@ -30,10 +32,13 @@ class GamesContainer extends React.Component {
         this.state = {
             gameData: [],
             gameCount: 0,
-            loading: false
+            loading: false,
+            more: false
         }
         this.updateGameData = this.updateGameData.bind(this)
         this.getGameData = this.getGameData.bind(this)
+        this.moreGames = this.moreGames.bind(this)
+        this.lessGames = this.lessGames.bind(this)
     }
 
     updateGameData(data) {
@@ -56,7 +61,10 @@ class GamesContainer extends React.Component {
                     let homeTeam = res.data.teams.home.team.name
                     let homeStats = res.data.teams.home.teamStats.teamSkaterStats
                     let awayStats = res.data.teams.away.teamStats.teamSkaterStats
-                    this.updateGameData({ home: homeTeam,homeStats: homeStats, away: awayTeam, awayStats })
+                    let homePlayers = res.data.teams.home.players
+                    let awayPlayers = res.data.teams.away.players
+                    this.updateGameData({ home: homeTeam, homeStats: homeStats, away: awayTeam, awayStats })
+                    this.props.updatePlayerData([homePlayers, awayPlayers])
                 })
                 .catch(err => console.log(err))
             this.setState({ gameCount: this.state.gameCount + 1 })
@@ -70,6 +78,14 @@ class GamesContainer extends React.Component {
         }
     }
 
+    moreGames() {
+        this.setState({more: true})
+    }
+
+    lessGames() {
+        this.setState({more: false})
+    }
+
     render() {
         if (this.state.loading === true) {
             return (
@@ -80,16 +96,15 @@ class GamesContainer extends React.Component {
         }
         else {
             let gameCards = this.state.gameData.map((game, id) => <GameCard gameData={game} key={id}></GameCard>)
-            let firstFour = [gameCards[0], gameCards[1], gameCards[2], gameCards[3]]
+            let firstFour = gameCards.slice(0,4)
             return (
                 <div>
                     <h2>Latest Games</h2>
                     <GamesStyled>
-                        {firstFour}
+                        {this.state.more === true ? gameCards : firstFour}
                     </GamesStyled>
-                    <MoreBtn>More</MoreBtn>
+                    {this.state.more === true ? <ToggleBtn onClick={this.lessGames}>Less</ToggleBtn> : <ToggleBtn onClick={this.moreGames}>More</ToggleBtn>}
                 </div>
-
             )
         }
     }

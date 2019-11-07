@@ -12,9 +12,11 @@ class DailyContainer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            gameIds: []
+            gameIds: [],
+            playerData: []
         }
         this.updateGameIds = this.updateGameIds.bind(this)
+        this.updatePlayerData = this.updatePlayerData.bind(this)
     }
 
     updateGameIds(Id) {
@@ -36,12 +38,16 @@ class DailyContainer extends React.Component {
             })
             .catch(err => console.log(err))
     }
+    updatePlayerData(data) {
+        this.setState({playerData: [...this.state.playerData, data]})
+    }
+
     render() {
         
         return (
             <DailyStyled>
-                <GamesContainer gameIds={this.state.gameIds}></GamesContainer>
-                <PlayerContainer></PlayerContainer>
+                <GamesContainer gameIds={this.state.gameIds} updatePlayerData={this.updatePlayerData}></GamesContainer>
+                <PlayerContainer playerData={this.state.playerData}></PlayerContainer>
             </DailyStyled>
         )
     }
