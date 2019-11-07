@@ -3,6 +3,12 @@ import GameCard from './GameCard'
 import styled from 'styled-components'
 import axios from 'axios'
 
+
+const Container = styled.div`
+border-bottom: black solid 2px;
+padding: 15px;
+`
+
 const GamesStyled = styled.div`
 display: flex;
 flex-direction: row;
@@ -79,11 +85,11 @@ class GamesContainer extends React.Component {
     }
 
     moreGames() {
-        this.setState({more: true})
+        this.setState({ more: true })
     }
 
     lessGames() {
-        this.setState({more: false})
+        this.setState({ more: false })
     }
 
     render() {
@@ -96,15 +102,15 @@ class GamesContainer extends React.Component {
         }
         else {
             let gameCards = this.state.gameData.map((game, id) => <GameCard gameData={game} key={id}></GameCard>)
-            let firstFour = gameCards.slice(0,4)
+            let firstFour = gameCards.slice(0, 4)
             return (
-                <div>
+                <Container>
                     <h2>Latest Games</h2>
                     <GamesStyled>
                         {this.state.more === true ? gameCards : firstFour}
                     </GamesStyled>
                     {this.state.more === true ? <ToggleBtn onClick={this.lessGames}>Less</ToggleBtn> : <ToggleBtn onClick={this.moreGames}>More</ToggleBtn>}
-                </div>
+                </Container>
             )
         }
     }

@@ -10,16 +10,16 @@ display: flex;
 flex-direction: column;
 `
 
-function PlayerCard(props){
- return (
-     <PlayStyled>
-         <strong>Team: {props.playerData.team}</strong>
-         <strong>Name: {props.playerData.name}</strong>
-         <strong>Points: {props.playerData.goals + props.playerData.assists}</strong>
-         <strong>Goals: {props.playerData.goals}</strong>
-         <strong>Assists: {props.playerData.assists}</strong>
-     </PlayStyled>
- )
+function PlayerCard(props) {
+    return (
+        <PlayStyled>
+            <strong>Team: {props.playerData.team}</strong>
+            <strong>Name: {props.playerData.name}</strong>
+            <strong>Points: {props.playerData.goals + props.playerData.assists}</strong>
+            <strong>Goals: {props.playerData.goals}</strong>
+            <strong>Assists: {props.playerData.assists}</strong>
+        </PlayStyled>
+    )
 }
 
 export default PlayerCard;

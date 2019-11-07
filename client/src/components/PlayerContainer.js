@@ -53,7 +53,7 @@ class PlayerContainer extends React.Component {
                 playerIds.forEach(player => {
                     let playerStats = playerList[player]
                     // console.log(playerStats)
-                    if(playerStats.stats.skaterStats){
+                    if (playerStats.stats.skaterStats) {
                         players.push({
                             team: playerStats.person.currentTeam.name,
                             name: playerStats.person.fullName,
@@ -65,31 +65,32 @@ class PlayerContainer extends React.Component {
             })
         })
         // console.log(players)
-        let sortedByPoints = players.sort((a,b) => ((a.goals + a.assists) > (b.goals + b.assists)) ? -1 : 1)
-        let sortedByGoals = sortedByPoints.sort((a,b) => (a.goals > b.goals) ? -1 : 1)
+        let sortedByPoints = players.sort((a, b) => ((a.goals + a.assists) > (b.goals + b.assists)) ? -1 : 1)
+        let sortedByGoals = sortedByPoints.sort((a, b) => (a.goals > b.goals) ? -1 : 1)
         // console.log(sorted)
-        this.setState({playersSorted: sortedByGoals})
+        this.setState({ playersSorted: sortedByGoals })
     }
 
     morePlayers() {
-        this.setState({more: true})
+        this.setState({ more: true })
     }
     lessPlayers() {
-        this.setState({more: false})
+        this.setState({ more: false })
     }
 
     render() {
         let playerCards = this.state.playersSorted.map((player, id) => {
-            if(player.goals + player.assists > 0){
+            if (player.goals + player.assists > 0) {
                 return (
                     <PlayerCard playerData={player} key={id}></PlayerCard>
                 )
             }
             return null
         })
-        let topFour = playerCards.slice(0,5)
+        let topFour = playerCards.slice(0, 5)
         return (
             <div>
+                <h2>Player points</h2>
                 <PlayersStyled>
                     {this.state.more === false ? topFour : playerCards}
                 </PlayersStyled>

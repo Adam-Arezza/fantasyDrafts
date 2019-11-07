@@ -39,11 +39,11 @@ class DailyContainer extends React.Component {
             .catch(err => console.log(err))
     }
     updatePlayerData(data) {
-        this.setState({playerData: [...this.state.playerData, data]})
+        this.setState({ playerData: [...this.state.playerData, data] })
     }
 
     render() {
-        
+
         return (
             <DailyStyled>
                 <GamesContainer gameIds={this.state.gameIds} updatePlayerData={this.updatePlayerData}></GamesContainer>

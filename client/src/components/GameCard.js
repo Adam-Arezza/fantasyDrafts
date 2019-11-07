@@ -22,7 +22,7 @@ function GameCard(props) {
         <GameCardStyled>
             <Stats>
                 <GameStats>
-                <h3>{props.gameData.home}</h3>
+                    <h3>{props.gameData.home}</h3>
                     <strong>
                         Goals: {props.gameData.homeStats.goals}
                     </strong>
@@ -35,8 +35,8 @@ function GameCard(props) {
                 </GameStats>
                 <strong>VS</strong>
                 <GameStats>
-                <h3>{props.gameData.away}</h3>
-                <strong>
+                    <h3>{props.gameData.away}</h3>
+                    <strong>
                         Goals: {props.gameData.awayStats.goals}
                     </strong>
                     <strong>
@@ -45,7 +45,7 @@ function GameCard(props) {
                     <strong>
                         Hits: {props.gameData.awayStats.hits}
                     </strong>
-                    </GameStats>
+                </GameStats>
             </Stats>
         </GameCardStyled>
     )
