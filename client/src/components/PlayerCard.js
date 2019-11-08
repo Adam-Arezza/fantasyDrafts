@@ -8,6 +8,7 @@ margin:10px;
 padding: 5px;
 display: flex;
 flex-direction: column;
+box-shadow: 5px 5px grey;
 `
 
 function PlayerCard(props) {

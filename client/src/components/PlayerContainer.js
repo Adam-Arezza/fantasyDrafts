@@ -7,17 +7,18 @@ display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 justify-content: center;
+align-items: center;
 padding: 10px;
 margin: 10px;
 `
 
-const ToggleBtn = styled.button`
+const ShiftBtn = styled.button`
 background: black;
 color: white;
 border-radius: 5px;
 border:none;
 font-size: 1.1em;
-padding:5px;
+padding:15px;
 :hover {
     cursor:pointer;
     background: darkgrey;
@@ -29,15 +30,21 @@ class PlayerContainer extends React.Component {
         super(props)
         this.state = {
             playersSorted: [],
-            more: false
+            more: false,
+            playerCards: [],
+            sliceVal: [0, 5]
         }
         this.morePlayers = this.morePlayers.bind(this)
         this.lessPlayers = this.lessPlayers.bind(this)
+        this.playerCards = this.playerCards.bind(this)
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (this.props.playerData !== prevProps.playerData) {
             this.sortPlayerData()
+        }
+        if(this.state.playersSorted !== prevState.playersSorted){
+            this.playerCards()
         }
     }
 
@@ -71,14 +78,7 @@ class PlayerContainer extends React.Component {
         this.setState({ playersSorted: sortedByGoals })
     }
 
-    morePlayers() {
-        this.setState({ more: true })
-    }
-    lessPlayers() {
-        this.setState({ more: false })
-    }
-
-    render() {
+    playerCards() {
         let playerCards = this.state.playersSorted.map((player, id) => {
             if (player.goals + player.assists > 0) {
                 return (
@@ -87,14 +87,38 @@ class PlayerContainer extends React.Component {
             }
             return null
         })
-        let topFour = playerCards.slice(0, 5)
+        this.setState({playerCards: playerCards})
+    }
+
+    morePlayers() {
+        let slice = this.state.sliceVal
+        if (slice[1] === this.state.playerCards.length){
+            return
+        }
+        slice[0] = slice[0] + 1
+        slice[1] = slice[1] + 1
+        this.setState({sliceVal: slice})
+    }
+    lessPlayers() {
+        let slice = this.state.sliceVal
+        if(slice[0] === 0){
+            return
+        }
+        slice[0] = slice[0] - 1
+        slice[1] = slice[1] - 1
+        this.setState({sliceVal: slice})
+    }
+
+    render() {
+        
         return (
             <div>
                 <h2>Player points</h2>
                 <PlayersStyled>
-                    {this.state.more === false ? topFour : playerCards}
+                    <ShiftBtn onClick={() => this.morePlayers()}>Shift</ShiftBtn>
+                    {this.state.playerCards.slice(this.state.sliceVal[0], this.state.sliceVal[1])}
+                    <ShiftBtn onClick={() => this.lessPlayers()}>Shift</ShiftBtn>
                 </PlayersStyled>
-                {this.state.more === true ? <ToggleBtn onClick={this.lessPlayers}>Less</ToggleBtn> : <ToggleBtn onClick={this.morePlayers}>More</ToggleBtn>}
             </div>
         )
     }

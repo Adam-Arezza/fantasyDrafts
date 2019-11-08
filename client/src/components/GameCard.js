@@ -6,6 +6,7 @@ border: solid black 2px;
 border-radius: 10px;
 margin:10px;
 padding: 5px;
+box-shadow: 5px 5px grey;
 `
 const Stats = styled.div`
 display: flex;
