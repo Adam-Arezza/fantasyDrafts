@@ -30,13 +30,12 @@ justify-self: flex-start;
 `
 
 function TopNav(props) {
-    const pages = ["home", "login", "register"]
 
     return (
         <HomeHeaderStyled>
             <Title>NHL Fantasy</Title>
-            <Buttons onClick={() => props.changePage(pages[1])}><Link to="/login">Login</Link></Buttons>
-            <Buttons onclick={() => props.changePage(pages[2])}><Link to="/register">Register</Link></Buttons>
+            <Buttons><Link to="/login">Login</Link></Buttons>
+            <Buttons><Link to="/register">Register</Link></Buttons>
         </HomeHeaderStyled>
     )
 }
