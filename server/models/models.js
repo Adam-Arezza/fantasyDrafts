@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+let playerSchema = mongoose.Schema({
+    fullName: String,
+    Goals: Number,
+    Assists: Number,
+    Points: Number,
+    Wins: Number,
+    Shutouts: Number,
+    PlayingTonight: Boolean,
+    Games: Number
+});
+
 let leagueSchema = mongoose.Schema({
     Title: { type: String, required: true },
     Teams: {
@@ -13,17 +24,6 @@ let userSchema = mongoose.Schema({
     Email: { type: String, required: true },
     Password: { type: String, required: true },
     Leagues: [String]
-});
-
-let playerSchema = mongoose.Schema({
-    fullName: String,
-    Goals: Number,
-    Assists: Number,
-    Points: Number,
-    Wins: Number,
-    Shutouts: Number,
-    PlayingTonight: Boolean,
-    Games: Number
 });
 
 let Player = mongoose.model('Player', playerSchema);
