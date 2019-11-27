@@ -18,18 +18,22 @@ exports.create = (req, res) => {
 
 exports.joinLeague = (req, res) => {
     let id = req.user
-    if(!req.query.league) {
-        //handle if there is no query string with leagueID
-    }
-    else{
-        let league = req.query.leagueId
-    }
+    let league = req.params.leagueId
+    League.findByIdAndUpdate(league, {Members: id})
+    .then(l => res.json({league: l, updated: true}))
+    .catch(err => console.log(err))
 }
 
 exports.leaveLeague = (req, res) => {
-
+    let id = req.user
+    let league = req.params.leagueId
+    League.find({_id: league, Creator: id})
+    // remove a user from a league
 }
 
-exports.remove = (req, res) => {
-
+exports.delete = (req, res) => {
+    let id = req.user
+    let league = req.params.leagueId
+    League.findByIdAndRemove(league)
+    //delete a league
 }

@@ -16,10 +16,10 @@ router.get('/', leaguesController.all)
 //creates a new league
 router.post('/create', leaguesController.create)
 //joins user to a league
-router.post('/join', leaguesController.joinLeague)
+router.post('/:leagueId/join', leaguesController.joinLeague)
 //deletes a league
-router.delete('/delete', leaguesController.remove)
+router.delete('/:leagueId/delete', leaguesController.delete)
 //removes user from a league
-router.delete('/leaveLeague', leaguesController.leaveLeague)
+router.delete('/:leagueId/leaveLeague', leaguesController.leaveLeague)
 
 module.exports = router

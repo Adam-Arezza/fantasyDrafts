@@ -4,6 +4,7 @@ const router = express.Router()
 router.get('/:userId', (req, res, next) => {
     if (!req.params.userId) {
         //bad request
+        //add error handler
         res.status(400).send("No user ID")
     }
     else {

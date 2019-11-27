@@ -1,13 +1,24 @@
 const express = require('express')
 const router = express.Router()
 
+router.get('/:userId', (req, res, next) => {
+    if (!req.params.userId) {
+        //bad request
+        //add error handler
+        res.status(400).send("No user ID")
+    }
+    else {
+        req.user = req.params.userId
+        next()
+    }
+})
 //returns all teams of a user
-router.get('/:userId', teamsController.all)
+router.get('/', teamsController.all)
 //returns a specific teams information
-router.get('/:userId/:teamId', teamsController.team)
+router.get('/:teamId', teamsController.team)
 //creates a new team for a user
-router.post('/:userId/create', teamsController.create)
+router.post('/create', teamsController.create)
 //deletes a team for a user
-router.delete('/:userId/delete', teamsController.remove)
+router.delete('/:teamId/delete', teamsController.remove)
 
 module.exports = router
