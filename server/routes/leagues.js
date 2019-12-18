@@ -1,16 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/:userId', (req, res, next) => {
-    if (!req.params.userId) {
-        //bad request
-        res.status(400).send("No user ID")
-    }
-    else {
-        req.user = req.params.userId
-        next()
-    }
-})
 //returns all leagues of a user
 router.get('/', leaguesController.all)
 //creates a new league
