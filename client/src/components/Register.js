@@ -53,37 +53,43 @@ class Register extends React.Component {
         this.closeWarning = this.closeWarning.bind(this)
     }
     handleEmail(e) {
-        this.setState({email: e.target.value})
+        this.setState({ email: e.target.value })
     }
 
     handlePassword(e) {
-        this.setState({password: e.target.value})
+        this.setState({ password: e.target.value })
     }
 
     handleError(e) {
-        this.setState({error: e})
+        this.setState({ error: e })
     }
 
     handleSubmit() {
-        if(this.state.email !== "" && this.state.password !== ""){
-            axios.post("localhost:5000/register", {
+        if (this.state.email !== "" && this.state.password !== "") {
+            axios.post("http://192.168.0.17:5000/register", {
                 email: this.state.email,
                 password: this.state.password
             })
-            .then( res => {
-                console.log(res.data)
-                // if email or password is invalid
-                //this.handleError(error)
-            })
-            .catch(err => console.log(err))
+                .then(res => {
+                    console.log(res.data)
+                    let success = res.data.success
+                    if (!success) {
+                        return this.handleError(res.data.message)
+                    }
+                    localStorage.setItem('nhlDraftToken', res.data.token)
+                    this.setState({ email: "" })
+                    this.setState({ password: "" })
+                    this.props.loggedIn(success)
+                })
+                .catch(err => console.log(err))
         }
-        if(!this.state.email || !this.state.password) {
+        if (!this.state.email || !this.state.password) {
             this.handleError("Must input email and password to register")
         }
     }
 
     closeWarning() {
-        this.setState({error: ""})
+        this.setState({ error: "" })
     }
 
     render() {

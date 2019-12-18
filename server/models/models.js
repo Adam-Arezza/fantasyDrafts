@@ -11,16 +11,16 @@ let playerSchema = mongoose.Schema({
     Games: Number
 });
 
-let teamSchema = mongooose.Schema({
-    Owner: { type: Schema.Types.ObjectId, ref: 'User' },
-    League: { type: Schema.Types.ObjectId, ref: 'League' },
-    Players: [{ type: Schema.Types.ObjectId, ref: 'Player' }]
+let teamSchema = mongoose.Schema({
+    Owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    League: { type: mongoose.Schema.Types.ObjectId, ref: 'League' },
+    Players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 })
 
 let leagueSchema = mongoose.Schema({
     Name: { type: String, required: true },
-    Creator: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    Members: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    Creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    Members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 let userSchema = mongoose.Schema({

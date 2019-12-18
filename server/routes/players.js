@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const playersController = require('../controllers/playersController')
 
 router.get('/:playerId', (req, res, next) => {
     if(!req.params.playerId){

@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const leaguesController = require('../controllers/leaguesController')
 
 //returns all leagues of a user
 router.get('/', leaguesController.all)

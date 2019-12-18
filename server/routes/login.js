@@ -1,31 +1,33 @@
 const User = require('../models/models').User
 const jwt = require('jsonwebtoken')
-const config = require('../config').get(process.env.NODE_ENV)
+const secret = require('../config').get(process.env.NODE_ENV).secret
 const bcrypt = require('bcrypt')
 
 exports.login = function (req, res) {
-    User.findOne({ email: req.body.email }, (err, user) => {
+    User.findOne({ Email: req.body.email }, (err, user) => {
         if (err) {
-            res.send(err)
+            return res.send(err)
         }
         if (!user) {
-            res.status(404).send("User not found")
+            return res.json({ success: false, message: "User not found" })
         }
         else {
-            bcrypt.compare(req.body.password, user.password, (err, res) => {
+            bcrypt.compare(req.body.password, user.Password, (err, response) => {
                 if (err) {
+                    console.log("There was an error...")
+                    // console.log(req.body.password)
+                    // console.log(user.Password)
                     console.log(err)
+                    return res.json({ success: false, message: "could not authenticate user" })
                 }
-                if (res === true) {
+                if (response === true) {
                     let payload = {
                         userId: user._id
                     }
-                    let token = jwt.sign(payload, config.secret, { expiresIn: 86400 * 7 })
-                    res.json({ success: true, token: token })
+                    let token = jwt.sign(payload, secret, { expiresIn: 86400 * 7 })
+                    return res.json({ success: true, token: token })
                 }
-                else {
-                    res.json({ success: false, message: "Invalid password" })
-                }
+                return res.json({ success: false, message: "Invalid password" })
             })
         }
     })

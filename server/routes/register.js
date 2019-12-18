@@ -1,10 +1,12 @@
 const User = require('../models/models').User
+const jwt = require('jsonwebtoken')
+const secret = require('../config').get(process.env.NODE_ENV).secret
 const bcrypt = require('bcrypt')
 
-exports.register = function (req, res, next) {
+exports.register = function (req, res) {
     let email = req.body.email
     let password = req.body.password
-    User.findOne({ email: email }, (err, user) => {
+    User.findOne({ Email: email }, (err, user) => {
         if (err) {
             return res.json({ success: false, message: "failed to create user" })
         }
@@ -19,9 +21,17 @@ exports.register = function (req, res, next) {
                 if (err) {
                     return res.json({ success: false, message: "An error occured" })
                 }
-                User.create({ email: email, password: hash })
-                    .then(user => res.json({ success: true, user: user.email, message: "user with email: " + user.email + " was created" })
-                        .catch(err => console.log(err)))
+                User.create({ Email: email, Password: hash }, function(err, user) {
+                    if(err){
+                        console.log(err)
+                        return res.json({success: false, message:"user could not be created"})
+                    }
+                    let payload = {
+                        userId: user._id,
+                    }
+                    let token = jwt.sign(payload, secret, { expiresIn: 86400 * 7 })
+                    return res.json({success: true, message: "user was created successfully", token: token})
+                })
             })
         })
     })
