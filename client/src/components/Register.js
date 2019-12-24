@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 const RegisterStyled = styled.div`
 display: flex;
@@ -10,10 +11,16 @@ justify-content: center;
 align-items: center;
 `
 const InputStyled = styled.input`
-width: 50%;
+width: 40%;
 display: block;
-font-size: 1.2em;
-margin: 5px;
+font-size: 2.0em;
+margin: 10px;
+padding: 10px;
+border: solid black 2px;
+border-radius: 20px;
+:focus {
+    outline:none;
+}
 `
 const Warning = styled.p`
 color: red;
@@ -26,16 +33,29 @@ background: pink;
 
 const SubmitStyled = styled.button`
 margin: 10px;
-padding: 5px;
+padding: 15px;
 color: white;
-font-size: 1.2em;
+font-size: 1.5em;
 border: none;
 background: black;
-border-radius: 5px;
+border-radius: 30px;
 :hover {
     cursor: pointer;
     background: darkgrey;
 }
+`
+const BackBtn = styled.button`
+:hover {
+    cursor: pointer;
+    background: darkgrey;
+}
+margin: 10px;
+padding: 15px;
+color: white;
+font-size: 1.5em;
+border: none;
+background: black;
+border-radius: 30px;
 `
 
 class Register extends React.Component {
@@ -44,7 +64,8 @@ class Register extends React.Component {
         this.state = {
             email: "",
             password: "",
-            error: ""
+            error: "",
+            back: false
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleEmail = this.handleEmail.bind(this)
@@ -92,13 +113,20 @@ class Register extends React.Component {
         this.setState({ error: "" })
     }
 
+    goBack() {
+        this.setState({back:true})
+    }
+
     render() {
         return (
             <RegisterStyled>
+                <h1>Register</h1>
                 <InputStyled onChange={this.handleEmail} placeholder="email"></InputStyled>
                 <InputStyled onChange={this.handlePassword} placeholder="password" type="password"></InputStyled>
                 <SubmitStyled onClick={this.handleSubmit}>Register</SubmitStyled>
                 {this.state.error !== "" ? <Warning>{this.state.error} <button onClick={this.closeWarning}>X</button></Warning> : null}
+                <BackBtn onClick={()=> this.goBack()}>Go Back</BackBtn>
+                {this.state.back === true? <Redirect to="/"></Redirect> : null}
             </RegisterStyled>
         )
     }
