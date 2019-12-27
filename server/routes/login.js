@@ -22,7 +22,8 @@ exports.login = function (req, res) {
                 }
                 if (response === true) {
                     let payload = {
-                        userId: user._id
+                        userId: user._id,
+                        email: user.Email
                     }
                     let token = jwt.sign(payload, secret, { expiresIn: 86400 * 7 })
                     return res.json({ success: true, token: token })

@@ -5,24 +5,11 @@ import PlayerCard from './PlayerCard'
 const PlayersStyled = styled.div`
 display: flex;
 flex-direction: row;
-flex-wrap: wrap;
 justify-content: center;
 align-items: center;
 padding: 10px;
 margin: 10px;
-`
-
-const ShiftBtn = styled.button`
-background: black;
-color: white;
-border-radius: 5px;
-border:none;
-font-size: 1.1em;
-padding:15px;
-:hover {
-    cursor:pointer;
-    background: darkgrey;
-}
+overflow: auto;
 `
 
 class PlayerContainer extends React.Component {
@@ -31,11 +18,8 @@ class PlayerContainer extends React.Component {
         this.state = {
             playersSorted: [],
             more: false,
-            playerCards: [],
-            sliceVal: [0, 5]
+            playerCards: []
         }
-        this.morePlayers = this.morePlayers.bind(this)
-        this.lessPlayers = this.lessPlayers.bind(this)
         this.playerCards = this.playerCards.bind(this)
     }
 
@@ -90,34 +74,16 @@ class PlayerContainer extends React.Component {
         this.setState({playerCards: playerCards})
     }
 
-    morePlayers() {
-        let slice = this.state.sliceVal
-        if (slice[1] === this.state.playerCards.length){
-            return
-        }
-        slice[0] = slice[0] + 1
-        slice[1] = slice[1] + 1
-        this.setState({sliceVal: slice})
-    }
-    lessPlayers() {
-        let slice = this.state.sliceVal
-        if(slice[0] === 0){
-            return
-        }
-        slice[0] = slice[0] - 1
-        slice[1] = slice[1] - 1
-        this.setState({sliceVal: slice})
-    }
-
     render() {
+        if(this.props.playerData.length === 0) {
+            return null
+        }
         
         return (
             <div>
                 <h2>Player points</h2>
                 <PlayersStyled>
-                    <ShiftBtn onClick={() => this.morePlayers()}>Shift</ShiftBtn>
-                    {this.state.playerCards.slice(this.state.sliceVal[0], this.state.sliceVal[1])}
-                    <ShiftBtn onClick={() => this.lessPlayers()}>Shift</ShiftBtn>
+                    {this.state.playerCards}
                 </PlayersStyled>
             </div>
         )

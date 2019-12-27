@@ -7,11 +7,12 @@ border-radius: 10px;
 margin:10px;
 padding: 5px;
 box-shadow: 5px 5px grey;
+min-width: 35%;
 `
 const Stats = styled.div`
 display: flex;
 flex-direction: row;
-justify-content: space-between;
+justify-content: space-around;
 `
 const GameStats = styled.div`
 display: flex;
@@ -34,7 +35,7 @@ function GameCard(props) {
                         Hits: {props.gameData.homeStats.hits}
                     </strong>
                 </GameStats>
-                <strong>VS</strong>
+                <strong>@</strong>
                 <GameStats>
                     <h3>{props.gameData.away}</h3>
                     <strong>

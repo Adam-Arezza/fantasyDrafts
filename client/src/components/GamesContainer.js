@@ -12,24 +12,11 @@ padding: 15px;
 const GamesStyled = styled.div`
 display: flex;
 flex-direction: row;
-flex-wrap: wrap;
 align-items: center;
 justify-content: center;
 padding: 10px;
 margin: 10px;
-`
-
-const ShiftBtn = styled.button`
-background: black;
-color: white;
-border-radius: 5px;
-border:none;
-font-size: 1.1em;
-padding:15px;
-:hover {
-    cursor:pointer;
-    background: darkgrey;
-}
+overflow: auto;
 `
 
 class GamesContainer extends React.Component {
@@ -45,8 +32,6 @@ class GamesContainer extends React.Component {
         }
         this.updateGameData = this.updateGameData.bind(this)
         this.getGameData = this.getGameData.bind(this)
-        this.moreGames = this.moreGames.bind(this)
-        this.lessGames = this.lessGames.bind(this)
         this.gameCards = this.gameCards.bind(this)
     }
 
@@ -59,6 +44,7 @@ class GamesContainer extends React.Component {
     }
 
     getGameData() {
+        delete axios.defaults.headers.Authorization
         let count = this.state.gameCount
         if (this.props.gameIds.length === 0) {
             this.setState({ loading: true })
@@ -85,30 +71,10 @@ class GamesContainer extends React.Component {
         if (this.props.gameIds !== prevProps.gameIds) {
             this.getGameData()
         }
-        if(this.state.gameCards === prevState.gameCards){
+        if (this.state.gameCards === prevState.gameCards) {
             this.gameCards()
         }
-        
-    }
 
-    moreGames() {
-        let slice = this.state.sliceVal
-        if (slice[1] === this.state.gameCards.length) {
-            return
-        }
-        slice[0] = slice[0] + 1
-        slice[1] = slice[1] + 1
-        this.setState({ sliceVal: slice })
-    }
-
-    lessGames() {
-        let slice = this.state.sliceVal
-        if (slice[0] === 0) {
-            return
-        }
-        slice[0] = slice[0] - 1
-        slice[1] = slice[1] - 1
-        this.setState({ sliceVal: slice })
     }
 
     gameCards() {
@@ -117,6 +83,14 @@ class GamesContainer extends React.Component {
     }
 
     render() {
+        if (this.state.loading === true && this.props.gameIds.length === 0) {
+            return (
+                <GamesStyled>
+                    <p>No games last night...</p>
+                </GamesStyled>
+            )
+        }
+        
         if (this.state.loading === true) {
             return (
                 <GamesStyled>
@@ -124,14 +98,13 @@ class GamesContainer extends React.Component {
                 </GamesStyled>
             )
         }
+
         else {
             return (
                 <Container>
                     <h2>Latest Games</h2>
                     <GamesStyled>
-                        <ShiftBtn onClick={() => this.moreGames()}>Shift</ShiftBtn>
-                        {this.state.gameCards.slice(this.state.sliceVal[0], this.state.sliceVal[1])}
-                        <ShiftBtn onClick={() => this.lessGames()}>Shift</ShiftBtn>
+                        {this.state.gameCards}
                     </GamesStyled>
                 </Container>
             )

@@ -8,6 +8,7 @@ const dbConfig = require('../server/config').get(process.env.NODE_ENV).db
 const playersRouter = require('./routes/players')
 const teamsRouter = require('./routes/teams')
 const leaguesRouter =  require('./routes/leagues')
+const userRouter = require('./routes/user')
 const authenticator = require('./authenticate').authenticated
 const login = require('./routes/login').login
 const register = require('./routes/register').register
@@ -21,6 +22,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use('/login', login)
 app.use('/register', rules(), validate, register)
+app.use('/user', authenticator, userRouter)
 app.use('/players', authenticator, playersRouter)
 app.use('/teams', authenticator, teamsRouter)
 app.use('/leagues', authenticator, leaguesRouter)
