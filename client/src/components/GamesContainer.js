@@ -5,18 +5,13 @@ import axios from 'axios'
 
 
 const Container = styled.div`
-border-bottom: black solid 2px;
-padding: 15px;
+    overflow: scroll;
+    margin-right: 15px;
+    margin-left: 8px;
 `
 
 const GamesStyled = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-padding: 10px;
-margin: 10px;
-overflow: auto;
+    display: flex;
 `
 
 class GamesContainer extends React.Component {
@@ -90,7 +85,7 @@ class GamesContainer extends React.Component {
                 </GamesStyled>
             )
         }
-        
+
         if (this.state.loading === true) {
             return (
                 <GamesStyled>
@@ -102,7 +97,6 @@ class GamesContainer extends React.Component {
         else {
             return (
                 <Container>
-                    <h2>Latest Games</h2>
                     <GamesStyled>
                         {this.state.gameCards}
                     </GamesStyled>
