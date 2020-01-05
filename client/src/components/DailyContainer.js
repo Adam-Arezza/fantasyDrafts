@@ -25,10 +25,14 @@ class DailyContainer extends React.Component {
 
     componentDidMount() {
         const date = new Date()
-        const year = date.getFullYear()
-        const month = date.getMonth()
-        const day = date.getUTCDate()
-        const gameDate = year + '-' + (month + 1) + '-' + (day - 5)
+        let year = date.getFullYear()
+        let month = date.getMonth()
+        let day = date.getUTCDate()
+        if(year === 2020 && month === 0 && day === 1){
+            year = 2019
+            day = 2
+        }
+        const gameDate = year + '-' + (month + 1) + '-' + (day - 1)
 
         axios.get("https://statsapi.web.nhl.com/api/v1/schedule?date=" + gameDate)
             .then(res => {
@@ -46,7 +50,9 @@ class DailyContainer extends React.Component {
 
         return (
             <DailyStyled>
+                <h1>Games last night</h1>
                 <GamesContainer gameIds={this.state.gameIds} updatePlayerData={this.updatePlayerData}></GamesContainer>
+                <h1>Player points</h1>
                 <PlayerContainer playerData={this.state.playerData}></PlayerContainer>
             </DailyStyled>
         )

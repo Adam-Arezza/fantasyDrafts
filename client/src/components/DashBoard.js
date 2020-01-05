@@ -38,21 +38,21 @@ class Dashboard extends React.Component {
             this.setState({user: ""})
         }
 
-        axios.get('http://192.168.0.17:5000/user')
+        axios.get('https://e31e6cc6.ngrok.io/user')
         .then(res => {
             let user = res.data.user
             this.setState({user: user})
         })
         .catch(err => console.log(err))
 
-        axios.get('http://192.168.0.17:5000/leagues')
+        axios.get('https://e31e6cc6.ngrok.io/leagues')
         .then(res => {
             let leagues = res.data
             this.setState({leagues: leagues})
         })
         .catch(err => console.log(err))
 
-        axios.get('http://192.168.0.17:5000/teams')
+        axios.get('https://e31e6cc6.ngrok.io/teams')
         .then(res => {
             let teams = res.data
             this.setState({teams: teams})

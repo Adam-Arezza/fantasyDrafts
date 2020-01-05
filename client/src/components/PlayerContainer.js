@@ -2,14 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import PlayerCard from './PlayerCard'
 
+const Container = styled.div`
+    overflow-x: scroll;
+    margin-right: 15px;
+    margin-left: 8px;
+`
+
 const PlayersStyled = styled.div`
 display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
 padding: 10px;
 margin: 10px;
-overflow: auto;
 `
 
 class PlayerContainer extends React.Component {
@@ -80,12 +82,11 @@ class PlayerContainer extends React.Component {
         }
         
         return (
-            <div>
-                <h2>Player points</h2>
+            <Container>
                 <PlayersStyled>
                     {this.state.playerCards}
                 </PlayersStyled>
-            </div>
+            </Container>
         )
     }
 }

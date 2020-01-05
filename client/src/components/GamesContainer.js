@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 const Container = styled.div`
-    overflow: scroll;
+    overflow-x: scroll;
     margin-right: 15px;
     margin-left: 8px;
 `
