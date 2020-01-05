@@ -28,6 +28,7 @@ exports.register = function (req, res) {
                     }
                     let payload = {
                         userId: user._id,
+                        email: email
                     }
                     let token = jwt.sign(payload, secret, { expiresIn: 86400 * 7 })
                     return res.json({success: true, message: "user was created successfully", token: token})

@@ -13,6 +13,7 @@ class App extends React.Component {
       loggedIn: false
     }
     this.checkLogin = this.checkLogin.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
   checkLogin(loginStatus) {
@@ -20,6 +21,11 @@ class App extends React.Component {
       return
     }
     this.setState({ loggedIn: loginStatus })
+  }
+
+  logout() {
+    this.setState({loggedIn: false})
+    localStorage.clear()
   }
 
   render() {
@@ -38,7 +44,7 @@ class App extends React.Component {
             {this.state.loggedIn === true ? <Redirect to="/dashboard"></Redirect> : <Home></Home>}
           </Route>
           <Route path="/dashboard">
-            <Dashboard></Dashboard>
+            {this.state.loggedIn === false ? <Home></Home> : <Dashboard logout={this.logout}></Dashboard>}
           </Route>
         </Router>
       </div>
