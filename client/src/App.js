@@ -4,7 +4,7 @@ import Register from './components/Register'
 import Login from './components/Login'
 import Dashboard from './components/DashBoard'
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 
 class App extends React.Component {
   constructor(props) {

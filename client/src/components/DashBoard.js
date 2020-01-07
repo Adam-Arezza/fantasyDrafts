@@ -7,6 +7,7 @@ import DailyContainer from './DailyContainer'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Standings from './Standings'
 import Account from './Account'
+import NewLeague from './NewLeague'
 
 const DashStyled = styled.div`
 min-height: 100vh;
@@ -73,7 +74,7 @@ class Dashboard extends React.Component {
                             <Route path='/dashboard/leagues'><DashLeagues leagues={this.state.leagues}></DashLeagues></Route>
                             <Route path='/dashboard/account'><Account></Account></Route>
                             <Route path='/dashboard/standings'><Standings></Standings></Route>
-                            <Route path='/dashboard/new-league'></Route>
+                            <Route path='/dashboard/new-league'><NewLeague></NewLeague></Route>
                         </Switch>
                     </MainContainer>
                 </Router>
