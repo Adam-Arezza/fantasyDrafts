@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import axios from 'axios'
 import DashNav from './DashNav'
 import DashLeagues from './DashLeagues'
-import DashTeams from './DashTeams'
 import DailyContainer from './DailyContainer'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Standings from './Standings'
+import Account from './Account'
 
 const DashStyled = styled.div`
 min-height: 100vh;
@@ -34,41 +36,47 @@ class Dashboard extends React.Component {
 
         axios.defaults.headers.Authorization = token
 
-        if(!token){
-            this.setState({user: ""})
+        if (!token) {
+            this.setState({ user: "" })
         }
 
         axios.get('https://e31e6cc6.ngrok.io/user')
-        .then(res => {
-            let user = res.data.user
-            this.setState({user: user})
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                let user = res.data.user
+                this.setState({ user: user })
+            })
+            .catch(err => console.log(err))
 
         axios.get('https://e31e6cc6.ngrok.io/leagues')
-        .then(res => {
-            let leagues = res.data
-            this.setState({leagues: leagues})
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                let leagues = res.data
+                this.setState({ leagues: leagues })
+            })
+            .catch(err => console.log(err))
 
         axios.get('https://e31e6cc6.ngrok.io/teams')
-        .then(res => {
-            let teams = res.data
-            this.setState({teams: teams})
-        })
-        .catch(err => console.log(err))
+            .then(res => {
+                let teams = res.data
+                this.setState({ teams: teams })
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
         return (
             <DashStyled>
-                <DashNav user={this.state.user} logout={this.props.logout}></DashNav>
-                <MainContainer>
-                <DailyContainer></DailyContainer>
-                <DashLeagues leagues={this.state.leagues}></DashLeagues>
-                <DashTeams teams={this.state.teams}></DashTeams>
-                </MainContainer>
+                <Router>
+                    <DashNav user={this.state.user} logout={this.props.logout}></DashNav>
+                    <MainContainer>
+                        <Switch>
+                            <Route path='/dashboard' exact><DailyContainer></DailyContainer></Route>
+                            <Route path='/dashboard/leagues'><DashLeagues leagues={this.state.leagues}></DashLeagues></Route>
+                            <Route path='/dashboard/account'><Account></Account></Route>
+                            <Route path='/dashboard/standings'><Standings></Standings></Route>
+                            <Route path='/dashboard/new-league'></Route>
+                        </Switch>
+                    </MainContainer>
+                </Router>
             </DashStyled>
         )
     }
