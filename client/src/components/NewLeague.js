@@ -11,7 +11,6 @@ import Selector from './Selector'
 const MainContainer = styled.div`
 display: flex;
 flex-direction: column;
-width: 80%;
 justify-content: center;
 `
 const InputStyled = styled.input`
@@ -52,22 +51,37 @@ display: flex;
 flex-direction: column;
 `
 
+const SubmitStyled = styled.button`
+margin: 10px;
+padding: 15px;
+color: white;
+font-size: 1.5em;
+border: none;
+background: black;
+border-radius: 30px;
+width:25%;
+:hover {
+    cursor: pointer;
+    background: darkgrey;
+}
+`
+
 class NewLeague extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            options: {
-                ppgoal: 0,
-                ppAssist: 0,
-                forwards: 0,
-                defense: 0,
-                ir: 0,
-                ppgGoalie: 0,
-                ppaGoalie: 0,
-                shutout: 0,
-                win: 0,
-                draftType: ""
-            },
+            name: "",
+            ppGoal: 0,
+            ppAssist: 0,
+            forwards: 0,
+            defense: 0,
+            ir: 0,
+            ppgGoalie: 0,
+            ppaGoalie: 0,
+            shutout: 0,
+            win: 0,
+            draftType: ""
+            ,
             ranges: {
                 ppGoal: [1, 2],
                 ppAssist: [1, 2],
@@ -87,29 +101,44 @@ class NewLeague extends React.Component {
     }
 
     handleSelect = (option, selection) => {
-        let prevState = this.state.options
+        this.setState({[`${option}`]: selection})
+    }
 
-        prevState[option] = selection
+    getName = (e) => {
+        this.setState({name: e.target.value})
+    }
 
-        this.setState({})
+    createLeague = () => {
+        let stateKeys = Object.keys(this.state)
+        if(this.state.name === undefined) {
+            return alert('please enter a name for the league')
+        }
+        stateKeys.forEach(k => {
+            console.log(k)
+            console.log(this.state[k])
+            // if(this.state[k] === 0) {
+            //     return alert('All fields are required to create a league')
+            // }
+        })
     }
 
     render() {
         let keys = Object.keys(this.state.ranges)
-        let selectors = keys.map((k, index) => <Selector key={index} values={this.state.ranges[k]} label={k} selection={this.handleSelect}></Selector>)
+        let selectors = keys.map((k, index) => <Selector key={index} values={this.state.ranges[k]} label={k} handleSelect={this.handleSelect}></Selector>)
 
         return (
             <MainContainer>
-                <InputStyled placeholder="League Name" ></InputStyled>
+                <InputStyled placeholder="League Name" onChange={this.getName}></InputStyled>
                 <ButtonGroup>
-                    <label for="live">Live Draft</label>
+                    <label htmlFor="live">Live Draft</label>
                     <CheckInput id="live" onClick={this.handleInput} value="live" draftType={this.state.draftType}></CheckInput>
-                    <label for="unlimited">Players unlimited</label>
+                    <label htmlFor="unlimited">Players unlimited</label>
                     <CheckInput id="unlimited" onClick={this.handleInput} value="unlimited" draftType={this.state.draftType}></CheckInput>
                 </ButtonGroup>
                 <SelectionGroup>
                     {selectors}
                 </SelectionGroup>
+                <SubmitStyled onClick={this.createLeague}>Create League</SubmitStyled>
             </MainContainer>
         )
     }

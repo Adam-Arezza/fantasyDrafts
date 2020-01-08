@@ -10,7 +10,7 @@ class Selector extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            selection: null
+            selection: ""
         }
     }
 
@@ -18,15 +18,17 @@ class Selector extends React.Component {
         this.setState({ selection: e.target.value })
     }
 
-    componentDidUpdate() {
-        this.props.selection(this.props.label, this.state.selection)
+    componentDidUpdate(prevProps, prevState){
+        if(this.state.selection !== prevState.selection) {
+            this.props.handleSelect(this.props.label, this.state.selection)
+        }
     }
 
     render() {
         let options = this.props.values.map((num, index) => <option key={index} value={num}>{num}</option>)
         return (
             <div>
-                <label for={this.props.label}><strong>{this.props.label}:</strong></label>
+                <label htmlFor={this.props.label}><strong>{this.props.label}:</strong></label>
                 <SelectorStyled id={this.props.label} value={this.state.selection} onChange={this.getValue}>
                     <option></option>
                     {options}
