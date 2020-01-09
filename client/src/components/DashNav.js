@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import MobileNav from './MobileNav'
 import { NavLink } from 'react-router-dom'
 
 
@@ -10,6 +11,11 @@ display: flex;
 flex-direction: column;
 width: 20%;
 color: white;
+@media only screen and (max-width: 600px) {
+    flex-direction: column;
+    width: 100%;
+    min-height: 50px;
+}
 `
 
 const NavTab = styled(NavLink)`
@@ -42,6 +48,12 @@ text-decoration: none;
 `
 
 function DashNav(props) {
+    if(window.innerWidth < 600) {
+        return(
+            <MobileNav props={props}></MobileNav>
+        )
+    }
+
     return (
         <Navigator>
             <NavTab to='/dashboard' exact>Latest games</NavTab>

@@ -13,6 +13,9 @@ const DashStyled = styled.div`
 min-height: 100vh;
 display:flex;
 flex-direction: row;
+@media only screen and (max-width: 600px) {
+    flex-direction: column;
+}
 `
 
 const MainContainer = styled.div`
