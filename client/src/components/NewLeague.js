@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Selector from './Selector'
+import axios from 'axios'
 // league name
 // live draft or players unlimited
 // # of forwards/defense/goalies
@@ -55,7 +56,7 @@ const SubmitStyled = styled.button`
 margin: 10px;
 padding: 15px;
 color: white;
-font-size: 1.5em;
+font-size: 1.25em;
 border: none;
 background: black;
 border-radius: 30px;
@@ -71,27 +72,29 @@ class NewLeague extends React.Component {
         super(props)
         this.state = {
             name: "",
-            ppGoal: 0,
-            ppAssist: 0,
+            goals: 0,
+            assists: 0,
             forwards: 0,
             defense: 0,
             ir: 0,
-            ppgGoalie: 0,
-            ppaGoalie: 0,
+            goalieGoals: 0,
+            goalieAssists: 0,
             shutout: 0,
             win: 0,
-            draftType: ""
+            draftType: "",
+            goalies: 0
             ,
             ranges: {
-                ppGoal: [1, 2],
-                ppAssist: [1, 2],
+                goals: [1, 2],
+                assists: [1, 2],
                 forwards: [5, 10, 15, 20],
                 defense: [5, 10, 15],
                 ir: [1, 2, 3],
-                ppgGoalie: [3, 5, 10],
-                ppaGoalie: [2, 3, 5],
+                goalieGoals: [3, 5, 10],
+                goalieAssists: [2, 3, 5],
                 shutout: [3, 5],
-                win: [1, 2]
+                win: [1, 2],
+                goalies: [1, 2, 3, 4, 5]
             }
         }
     }
@@ -101,25 +104,53 @@ class NewLeague extends React.Component {
     }
 
     handleSelect = (option, selection) => {
-        this.setState({[`${option}`]: selection})
+        this.setState({ [`${option}`]: selection })
     }
 
     getName = (e) => {
-        this.setState({name: e.target.value})
+        this.setState({ name: e.target.value })
     }
 
     createLeague = () => {
         let stateKeys = Object.keys(this.state)
-        if(this.state.name === undefined) {
+        if (!this.state.name) {
             return alert('please enter a name for the league')
         }
-        stateKeys.forEach(k => {
-            console.log(k)
-            console.log(this.state[k])
-            // if(this.state[k] === 0) {
-            //     return alert('All fields are required to create a league')
-            // }
+        let unSelected = stateKeys.find(k => {
+            return this.state[k] === 0
         })
+        if (unSelected) {
+            return alert("All fields are required to create a league")
+        }
+        console.log(`Creating league: ${this.state.name}`)
+
+        //get token
+        //post request to /leagues/create
+        let token = localStorage.getItem('nhlDraftToken')
+        let options = Object.keys(this.state)
+        options = options.filter(key => key !== 'ranges')
+        let filteredOptions = options.map(option => this.state[option])
+        let payload = {
+            token: token,
+            options: {}
+        }
+        for (let i = 0; i < options.length; i++) {
+            let option = options[i]
+            option = option.charAt(0).toUpperCase() + option.slice(1)
+            let value = filteredOptions[i]
+            let valueCopy = value
+            valueCopy = Number(valueCopy)
+            if(Number.isNaN(valueCopy)){
+                payload.options[option] = value
+            }
+            else{
+                payload.options[option] = valueCopy
+            } 
+        }
+        // console.log(payload)
+        // axios.post("https://e31e6cc6.ngrok.io/login", payload)
+        //     .then(res => console.log(res.data))
+        //     .catch(err => console.log(err))
     }
 
     render() {

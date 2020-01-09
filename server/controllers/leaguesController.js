@@ -10,8 +10,9 @@ exports.all = (req, res) => {
 
 exports.create = (req, res) => {
     let id = req.decoded.userId
-    let name = req.body.name
-    League.create({Name: name, Creator: id})
+    let options = req.body.payload.options
+    options.Creator = id
+    League.create({options})
     .then(league => res.json({createdLeague: league}))
     .catch(err => console.log(err))
 }

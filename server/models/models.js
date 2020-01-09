@@ -14,13 +14,25 @@ let playerSchema = mongoose.Schema({
 let teamSchema = mongoose.Schema({
     Owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     League: { type: mongoose.Schema.Types.ObjectId, ref: 'League' },
+    Name: {type: String, required: true},
     Players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 })
 
 let leagueSchema = mongoose.Schema({
     Name: { type: String, required: true },
     Creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    Members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+    Teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
+    Forwards: {type: Number, required: true},
+    Defense: {type: Number, required: true},
+    Goalies: {type: Number, required: true},
+    Goals: {type: Number, required: true},
+    Assists: {type: Number, required: true},
+    GoalieGoals: {type: Number, required: true},
+    GoalieAssists: {type: Number, required: true},
+    Shutout: {type: Number, required: true},
+    Win: {type: Number, required: true},
+    IR: {type: Number, required: true},
+    DraftType: {type: String, required: true}
 });
 
 let userSchema = mongoose.Schema({

@@ -71,10 +71,10 @@ class Dashboard extends React.Component {
                     <MainContainer>
                         <Switch>
                             <Route path='/dashboard' exact><DailyContainer></DailyContainer></Route>
-                            <Route path='/dashboard/leagues'><DashLeagues leagues={this.state.leagues}></DashLeagues></Route>
-                            <Route path='/dashboard/account'><Account></Account></Route>
+                            <Route path='/dashboard/leagues'><DashLeagues leagues={this.state.leagues} user={this.state.user}></DashLeagues></Route>
+                            <Route path='/dashboard/account'><Account user={this.state.user}></Account></Route>
                             <Route path='/dashboard/standings'><Standings></Standings></Route>
-                            <Route path='/dashboard/new-league'><NewLeague></NewLeague></Route>
+                            <Route path='/dashboard/new-league'><NewLeague user={this.state.user}></NewLeague></Route>
                         </Switch>
                     </MainContainer>
                 </Router>
