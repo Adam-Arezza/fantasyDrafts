@@ -16,6 +16,7 @@ exports.create = (req, res) => {
     let id = req.decoded.userId
     let leagueOptions = req.body.options
     leagueOptions["Creator"] = id
+    leagueOptions["Members"] = id
     console.log(leagueOptions)
     League.create({...leagueOptions}, function(err, league) {
         if(err) {
