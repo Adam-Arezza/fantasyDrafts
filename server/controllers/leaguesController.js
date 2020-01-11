@@ -3,18 +3,27 @@ const League = require('../models/models').League
 //need to handle db errors
 exports.all = (req, res) => {
     let id = req.decoded.userId
-    League.find({Members: id})
-    .then(leagues => res.json(leagues))
-    .catch(err => console.log(err))
+    // console.log(id)
+    League.find({Members: id}, function(err, leagues) {
+        if(err) {
+            console.log(err)
+        }
+        res.json(leagues)
+    })
 }
 
 exports.create = (req, res) => {
     let id = req.decoded.userId
-    let options = req.body.payload.options
-    options.Creator = id
-    League.create({options})
-    .then(league => res.json({createdLeague: league}))
-    .catch(err => console.log(err))
+    let leagueOptions = req.body.options
+    leagueOptions["Creator"] = id
+    console.log(leagueOptions)
+    League.create({...leagueOptions},{Members: id}, function(err, league) {
+        if(err) {
+            console.log(err)
+        }
+        console.log(league)
+        res.json(league)
+    })
 }
 
 exports.joinLeague = (req, res) => {

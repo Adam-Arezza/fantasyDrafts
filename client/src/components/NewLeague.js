@@ -76,7 +76,7 @@ class NewLeague extends React.Component {
             assists: 0,
             forwards: 0,
             defense: 0,
-            ir: 0,
+            iR: 0,
             goalieGoals: 0,
             goalieAssists: 0,
             shutout: 0,
@@ -89,7 +89,7 @@ class NewLeague extends React.Component {
                 assists: [1, 2],
                 forwards: [5, 10, 15, 20],
                 defense: [5, 10, 15],
-                ir: [1, 2, 3],
+                iR: [1, 2, 3],
                 goalieGoals: [3, 5, 10],
                 goalieAssists: [2, 3, 5],
                 shutout: [3, 5],
@@ -148,9 +148,9 @@ class NewLeague extends React.Component {
             } 
         }
         // console.log(payload)
-        // axios.post("https://e31e6cc6.ngrok.io/login", payload)
-        //     .then(res => console.log(res.data))
-        //     .catch(err => console.log(err))
+        axios.post("https://e31e6cc6.ngrok.io/leagues/create", payload)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
     }
 
     render() {

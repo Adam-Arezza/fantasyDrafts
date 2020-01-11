@@ -21,6 +21,7 @@ let teamSchema = mongoose.Schema({
 let leagueSchema = mongoose.Schema({
     Name: { type: String, required: true },
     Creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    Members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     Teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
     Forwards: {type: Number, required: true},
     Defense: {type: Number, required: true},

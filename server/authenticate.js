@@ -3,7 +3,8 @@ const config = require('./config').get(process.env.NODE_ENV)
 
 let auth = {
     authenticated: function (req, res, next) {
-        console.log(req.headers)
+        // console.log(req.headers)
+        // console.log(req.body)
         let token = req.body.token || req.query.token || req.headers.authorization
         if (!token) {
             return res.json({ success: false, message: "No token" })

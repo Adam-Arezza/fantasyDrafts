@@ -10,7 +10,7 @@ class DashLeagues extends React.Component{
             return <h1>No leagues</h1>
         }
         return (
-            <div>Leagues</div>
+            <div>this.props.leagues</div>
         )
     }
 }
