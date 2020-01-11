@@ -87,7 +87,7 @@ class Register extends React.Component {
 
     handleSubmit() {
         if (this.state.email !== "" && this.state.password !== "") {
-            axios.post("http://192.168.0.17:5000/register", {
+            axios.post("https://dbf851a3.ngrok.io/register", {
                 email: this.state.email,
                 password: this.state.password
             })

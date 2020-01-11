@@ -148,7 +148,7 @@ class NewLeague extends React.Component {
             } 
         }
         // console.log(payload)
-        axios.post("https://e31e6cc6.ngrok.io/leagues/create", payload)
+        axios.post("https://dbf851a3.ngrok.io/leagues/create", payload)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
     }

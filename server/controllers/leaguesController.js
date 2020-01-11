@@ -17,7 +17,7 @@ exports.create = (req, res) => {
     let leagueOptions = req.body.options
     leagueOptions["Creator"] = id
     console.log(leagueOptions)
-    League.create({...leagueOptions},{Members: id}, function(err, league) {
+    League.create({...leagueOptions}, function(err, league) {
         if(err) {
             console.log(err)
         }
