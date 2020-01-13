@@ -126,7 +126,7 @@ class NewLeague extends React.Component {
 
         //get token
         //post request to /leagues/create
-        let token = localStorage.getItem('nhlDraftToken')
+        let token = JSON.parse(localStorage.getItem('nhlDraftToken'))
         let options = Object.keys(this.state)
         options = options.filter(key => key !== 'ranges')
         let filteredOptions = options.map(option => this.state[option])
@@ -147,7 +147,7 @@ class NewLeague extends React.Component {
                 payload.options[option] = valueCopy
             } 
         }
-        // console.log(payload)
+        console.log(payload)
         axios.post("https://dbf851a3.ngrok.io/leagues/create", payload)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))

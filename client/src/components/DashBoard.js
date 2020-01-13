@@ -51,12 +51,12 @@ class Dashboard extends React.Component {
             })
             .catch(err => console.log(err))
 
-        axios.get('https://dbf851a3.ngrok.io/leagues')
-            .then(res => {
-                let leagues = res.data
-                this.setState({ leagues: leagues })
-            })
-            .catch(err => console.log(err))
+        // axios.get('https://dbf851a3.ngrok.io/leagues')
+        //     .then(res => {
+        //         let leagues = res.data
+        //         this.setState({ leagues: leagues })
+        //     })
+        //     .catch(err => console.log(err))
 
         axios.get('https://dbf851a3.ngrok.io/teams')
             .then(res => {
