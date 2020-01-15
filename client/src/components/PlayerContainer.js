@@ -6,6 +6,17 @@ const Container = styled.div`
     overflow-x: scroll;
     margin-right: 15px;
     margin-left: 8px;
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+    &::-webkit-scrollbar-track {
+        background: lightblue;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 10px;
+    }
 `
 
 const PlayersStyled = styled.div`

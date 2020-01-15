@@ -4,51 +4,67 @@ import styled from 'styled-components'
 const CardStyled = styled.div`
 background: lightgrey;
 border-radius: 10px;
+border: solid 1px black;
 margin: 15px;
 color: black;
 padding: 15px;
-display: flex;
-flex-direction: row;
 `
 const InnerCard = styled.div`
 display: flex;
+flex-direction: row;
+justify-content: space-around;
+`
+const Details = styled.div`
+display: flex;
 flex-direction: column;
 `
+
 const Detail = styled.div`
-font-size: 1.2em;
-padding: 5px;
+font-size: 0.80em;
 margin: 5px;
 `
-const Team = styled.div`
-background: black;
-color: white;
+
+const TeamList = styled.ul`
+margin: 0px;
+list-style: none;
+background: rgb(150,150,150);
 `
 
 class LeagueCard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            showDetails: false
+            selectedTeam: ""
         }
-    }
-
-    showDetails = () => {
-        this.setState({ showDetails: !this.state.showDetails })
     }
 
     render() {
         let detailKeys = Object.keys(this.props.details)
         detailKeys = detailKeys.filter(d => {
-            return d !== "Members" && d !== "Teams" && d !== "Creator" && d !== "_id" && d !== "__v"
+            return d !== "Members" && d !== "Teams" && d !== "Creator" && d !== "_id" && d !== "__v" && d !== "Name"
         })
         let details = detailKeys.map((detail, index) => <Detail key={index}><span>{detail}: {this.props.details[detail]}</span></Detail>)
-
+        let teams
+        try {
+            teams = this.props.details.teams.map((team, index) => <li key={index}>{team}</li>)
+        }
+        catch (err) {
+            console.log(err)
+        }
         return (
             <CardStyled>
-                {this.props.details.Name}
-                <button onClick={this.showDetails}>Details</button>
-                {this.state.showDetails ? <InnerCard>{details}</InnerCard> : null}
-                {this.state.showDetails ? <InnerCard><Team>Teams</Team></InnerCard> : null}
+                <h3>{this.props.details.Name.toUpperCase()}</h3>
+                <InnerCard>
+                    <Details>
+                        {details}
+                    </Details>
+                    <Details>
+                        Teams:
+                        <TeamList>
+                            {teams}
+                        </TeamList>
+                    </Details>
+                </InnerCard>
             </CardStyled>
         )
     }

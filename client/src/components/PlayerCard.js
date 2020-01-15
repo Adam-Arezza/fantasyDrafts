@@ -7,6 +7,9 @@ border-radius: 10px;
 margin: 10px;
 box-shadow: 5px 5px grey;
 min-width: 20%;
+@media only screen and (max-width: 600px){
+    min-width: 45%;
+}
 `
 const Content = styled.div`
 display: flex;

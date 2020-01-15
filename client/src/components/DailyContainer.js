@@ -8,6 +8,10 @@ const DailyStyled = styled.div`
 text-align: center;
 `
 
+const Heading = styled.h1`
+    margin: 10px;
+`
+
 class DailyContainer extends React.Component {
     constructor(props) {
         super(props)
@@ -50,9 +54,9 @@ class DailyContainer extends React.Component {
 
         return (
             <DailyStyled>
-                <h1>Games last night</h1>
+                <Heading>Games last night</Heading>
                 <GamesContainer gameIds={this.state.gameIds} updatePlayerData={this.updatePlayerData}></GamesContainer>
-                <h1>Player points</h1>
+                <Heading>Player points</Heading>
                 <PlayerContainer playerData={this.state.playerData}></PlayerContainer>
             </DailyStyled>
         )

@@ -7,6 +7,9 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
+position: sticky;
+top: 0;
+background: lightgrey;
 a{
     text-decoration: none;
     color: white;

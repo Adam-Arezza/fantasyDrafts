@@ -5,16 +5,20 @@ import styled from 'styled-components'
 
 const LeagueCardsContainer = styled.div`
 display: flex;
-flex-direction: column;
-justify-content: center;
+flex-direction: row;
+flex-wrap: wrap;
+`
+const LeaguesHeader = styled.h1`
+border-bottom: solid black 2px;
 `
 
-class DashLeagues extends React.Component{
-    constructor(props){
+class DashLeagues extends React.Component {
+    constructor(props) {
         super(props)
         this.state = {
             leagues: [],
-            loading: false
+            loading: false,
+            selectedTeam:""
         }
     }
 
@@ -22,32 +26,36 @@ class DashLeagues extends React.Component{
         let token = localStorage.getItem('nhlDraftToken')
         axios.defaults.headers.Authorization = token
 
-        this.setState({loading: true}, () => {
+        this.setState({ loading: true }, () => {
             axios.get('https://dbf851a3.ngrok.io/leagues')
-            .then(res => {
-                let leagues = res.data
-                console.log(leagues)
-                this.setState({ leagues: [...this.state.leagues, ...leagues], loading: false })
-            })
-            .catch(err => console.log(err))
-        }) 
+                .then(res => {
+                    let leagues = res.data
+                    console.log(leagues)
+                    this.setState({ leagues: [...this.state.leagues, ...leagues], loading: false })
+                })
+                .catch(err => console.log(err))
+        })
     }
 
-    render(){
+    render() {
         let leagues = this.state.leagues.map((league, index) => <LeagueCard key={index} details={league}></LeagueCard>)
 
-        if(this.state.leagues.length === 0 && this.state.loading === false) {
+        if (this.state.leagues.length === 0 && this.state.loading === false) {
             return <h1>No leagues</h1>
         }
 
-        if(this.state.loading === true) {
+        if (this.state.loading === true) {
             return <h1>Loading leagues...</h1>
         }
 
         return (
-            <LeagueCardsContainer>
-                {leagues}
-            </LeagueCardsContainer>
+            <div>
+                <LeaguesHeader>My Leagues</LeaguesHeader>
+                <LeagueCardsContainer>
+                    {leagues}
+                </LeagueCardsContainer>
+            </div>
+
         )
     }
 }

@@ -8,6 +8,9 @@ const GameCardStyled = styled.div`
     padding: 5px;
     box-shadow: 5px 5px grey;
     min-width: 35%;
+    @media only screen and (max-width: 600px){
+        min-width: 75%;
+    }
 `
 const Stats = styled.div`
     display: flex;
@@ -16,6 +19,7 @@ const Stats = styled.div`
 const GameStats = styled.div`
     display: flex;
     flex-direction: column;
+    font-size: 1em;
 `
 
 function GameCard(props) {
