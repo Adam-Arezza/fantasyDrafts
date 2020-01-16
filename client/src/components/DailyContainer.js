@@ -19,11 +19,9 @@ class DailyContainer extends React.Component {
             gameIds: [],
             playerData: []
         }
-        this.updateGameIds = this.updateGameIds.bind(this)
-        this.updatePlayerData = this.updatePlayerData.bind(this)
     }
 
-    updateGameIds(Id) {
+    updateGameIds = (Id) => {
         this.setState({ gameIds: [...this.state.gameIds, Id] })
     }
 
@@ -46,7 +44,7 @@ class DailyContainer extends React.Component {
             })
             .catch(err => console.log(err))
     }
-    updatePlayerData(data) {
+    updatePlayerData = (data) => {
         this.setState({ playerData: [...this.state.playerData, data] })
     }
 
@@ -56,7 +54,7 @@ class DailyContainer extends React.Component {
             <DailyStyled>
                 <Heading>Games last night</Heading>
                 <GamesContainer gameIds={this.state.gameIds} updatePlayerData={this.updatePlayerData}></GamesContainer>
-                <Heading>Player points</Heading>
+                <Heading>Players</Heading>
                 <PlayerContainer playerData={this.state.playerData}></PlayerContainer>
             </DailyStyled>
         )

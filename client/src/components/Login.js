@@ -56,7 +56,6 @@ font-size: 1.5em;
 border: none;
 background: black;
 border-radius: 30px;
-
 `
 
 class Login extends React.Component {
@@ -69,23 +68,18 @@ class Login extends React.Component {
             error: "",
             back: false
         }
-        this.handlePassword = this.handlePassword.bind(this)
-        this.handleUsername = this.handleUsername.bind(this)
-        this.submitCredentials = this.submitCredentials.bind(this)
-        this.handleCredentialsError = this.handleCredentialsError.bind(this)
-        this.closeWarning = this.closeWarning.bind(this)
     }
 
-    handleUsername(e) {
+    handleUsername = (e) => {
         this.setState({ username: e.target.value })
     }
 
-    handlePassword(e) {
+    handlePassword = (e) => {
         this.setState({ password: e.target.value })
     }
     //https://e31e6cc6.ngrok.io/login
 
-    submitCredentials() {
+    submitCredentials = () => {
         if (this.state.username !== "" && this.state.password !== "") {
             axios.post("https://dbf851a3.ngrok.io/login", {
                 email: this.state.username,
@@ -118,15 +112,15 @@ class Login extends React.Component {
 
     }
 
-    handleCredentialsError(error) {
+    handleCredentialsError = (error) =>{
         this.setState({ error: error })
     }
 
-    closeWarning() {
+    closeWarning = () =>{
         this.setState({ error: "" })
     }
 
-    goBack() {
+    goBack = () => {
         this.setState({back:true})
     }
 

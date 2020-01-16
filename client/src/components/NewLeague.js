@@ -158,7 +158,7 @@ class NewLeague extends React.Component {
                 payload.options[option] = valueCopy
             }
         }
-        console.log(payload)
+        // console.log(payload)
         axios.post("https://dbf851a3.ngrok.io/leagues/create", payload)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))

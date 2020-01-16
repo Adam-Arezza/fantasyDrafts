@@ -59,7 +59,6 @@ function DashNav(props) {
             <NavTab to='/dashboard' exact>Latest games</NavTab>
             <NavTab onClick={props.newLeague} to='/dashboard/new-league' exact>New League</NavTab>
             <NavTab to='/dashboard/account' exact>Account info</NavTab>
-            <NavTab to='/dashboard/standings' exact>Standings</NavTab>
             <NavTab to='/dashboard/leagues' exact>Leagues</NavTab>
             <LogoutDiv onClick={props.logout}>Logout</LogoutDiv>
             <p>{props.user}</p>

@@ -10,7 +10,7 @@ const Container = styled.div`
         width: 10px;
     }
     &::-webkit-scrollbar-track {
-        background: lightblue;
+        background: lightgrey;
         border-radius: 10px;
     }
     &::-webkit-scrollbar-thumb {

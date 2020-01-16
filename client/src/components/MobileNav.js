@@ -67,7 +67,6 @@ class MobileNav extends React.Component{
                     <NavTab to='/dashboard' exact>Latest games</NavTab>
                     <NavTab onClick={this.props.newLeague} to='/dashboard/new-league' exact>New League</NavTab>
                     <NavTab to='/dashboard/account' exact>Account info</NavTab>
-                    <NavTab to='/dashboard/standings' exact>Standings</NavTab>
                     <NavTab to='/dashboard/leagues' exact>Leagues</NavTab>
                     <LogoutDiv onClick={this.props.logout}>Logout</LogoutDiv>
                     <p>{this.props.user}</p>
