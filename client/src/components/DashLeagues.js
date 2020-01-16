@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import LeagueCard from './LeagueCard'
+import Team from './Team'
 import styled from 'styled-components'
 
 const LeagueCardsContainer = styled.div`
@@ -8,8 +9,11 @@ display: flex;
 flex-direction: row;
 flex-wrap: wrap;
 `
+
 const LeaguesHeader = styled.h1`
 border-bottom: solid black 2px;
+padding: 15px;
+margin: 10px;
 `
 
 class DashLeagues extends React.Component {
@@ -37,6 +41,10 @@ class DashLeagues extends React.Component {
         })
     }
 
+    selectTeam(team) {
+        this.setState({selectedTeam: team})
+    }
+
     render() {
         let leagues = this.state.leagues.map((league, index) => <LeagueCard key={index} details={league}></LeagueCard>)
 
@@ -52,7 +60,7 @@ class DashLeagues extends React.Component {
             <div>
                 <LeaguesHeader>My Leagues</LeaguesHeader>
                 <LeagueCardsContainer>
-                    {leagues}
+                    {this.state.selectedTeam ? <Team team={this.state.selectedTeam}></Team> : leagues}
                 </LeagueCardsContainer>
             </div>
 

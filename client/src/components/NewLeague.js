@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Selector from './Selector'
 import axios from 'axios'
+import ToolTip from './ToolTip'
 // league name
 // live draft or players unlimited
 // # of forwards/defense/goalies
@@ -13,6 +14,7 @@ const MainContainer = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
+align-items: center;
 `
 const InputStyled = styled.input`
 width: 40%;
@@ -95,7 +97,8 @@ class NewLeague extends React.Component {
                 shutout: [3, 5],
                 win: [1, 2],
                 goalies: [1, 2, 3, 4, 5]
-            }
+            },
+            toolTip: false
         }
     }
 
@@ -109,6 +112,14 @@ class NewLeague extends React.Component {
 
     getName = (e) => {
         this.setState({ name: e.target.value })
+    }
+
+    showToolTip = () => {
+        this.setState({ toolTip: true })
+    }
+
+    removeToolTip = () => {
+        this.setState({ toolTip: false })
     }
 
     createLeague = () => {
@@ -128,7 +139,7 @@ class NewLeague extends React.Component {
         //post request to /leagues/create
         let token = JSON.parse(localStorage.getItem('nhlDraftToken'))
         let options = Object.keys(this.state)
-        options = options.filter(key => key !== 'ranges')
+        options = options.filter(key => key !== 'ranges' && key !== 'toolTip')
         let filteredOptions = options.map(option => this.state[option])
         let payload = {
             token: token,
@@ -140,12 +151,12 @@ class NewLeague extends React.Component {
             let value = filteredOptions[i]
             let valueCopy = value
             valueCopy = Number(valueCopy)
-            if(Number.isNaN(valueCopy)){
+            if (Number.isNaN(valueCopy)) {
                 payload.options[option] = value
             }
-            else{
+            else {
                 payload.options[option] = valueCopy
-            } 
+            }
         }
         console.log(payload)
         axios.post("https://dbf851a3.ngrok.io/leagues/create", payload)
@@ -160,11 +171,25 @@ class NewLeague extends React.Component {
         return (
             <MainContainer>
                 <InputStyled placeholder="League Name" onChange={this.getName}></InputStyled>
-                <ButtonGroup>
+                <ButtonGroup
+                    onMouseEnter={this.showToolTip}
+                    onMouseLeave={this.removeToolTip}>
+                    {this.state.toolTip ? <ToolTip></ToolTip> : null}
                     <label htmlFor="live">Live Draft</label>
-                    <CheckInput id="live" onClick={this.handleInput} value="live" draftType={this.state.draftType}></CheckInput>
+                    <CheckInput
+                        id="live" 
+                        onClick={this.handleInput}
+                        value="live" 
+                        draftType={this.state.draftType}>
+                    </CheckInput>
                     <label htmlFor="unlimited">Players unlimited</label>
-                    <CheckInput id="unlimited" onClick={this.handleInput} value="unlimited" draftType={this.state.draftType}></CheckInput>
+                    <CheckInput
+                        id="unlimited"
+                        onClick={this.handleInput}
+                        value="unlimited"
+                        draftType={this.state.draftType}
+                        onMouseEnter={this.showToolTip}
+                        onMouseLeave={this.removeToolTip}></CheckInput>
                 </ButtonGroup>
                 <SelectionGroup>
                     {selectors}

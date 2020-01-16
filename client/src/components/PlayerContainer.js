@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PlayerCard from './PlayerCard'
 
 const Container = styled.div`
-    overflow-x: scroll;
+    overflow-x: auto;
     margin-right: 15px;
     margin-left: 8px;
     &::-webkit-scrollbar {

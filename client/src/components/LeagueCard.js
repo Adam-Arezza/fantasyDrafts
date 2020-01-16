@@ -56,10 +56,11 @@ class LeagueCard extends React.Component {
                 <h3>{this.props.details.Name.toUpperCase()}</h3>
                 <InnerCard>
                     <Details>
+                        <strong>Details</strong>
                         {details}
                     </Details>
                     <Details>
-                        Teams:
+                        <strong>Teams</strong>
                         <TeamList>
                             {teams}
                         </TeamList>
