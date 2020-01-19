@@ -27,6 +27,9 @@ border-radius: 20px;
 :focus {
     outline:none;
 }
+@media only screen and (max-width: 600px) {
+    width: 80%;
+}
 `
 
 const CheckInput = styled.button`
@@ -66,6 +69,9 @@ width:25%;
 :hover {
     cursor: pointer;
     background: darkgrey;
+}
+@media only screen and (max-width: 600px) {
+    width: 75%;
 }
 `
 

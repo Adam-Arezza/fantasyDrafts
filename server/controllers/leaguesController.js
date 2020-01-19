@@ -1,6 +1,5 @@
 const League = require('../models/models').League
 
-//need to handle db errors
 exports.all = (req, res) => {
     let id = req.decoded.userId
     // console.log(id)

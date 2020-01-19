@@ -10,6 +10,7 @@ flex-direction: column;
 color: white;
 width: 100%;
 min-height: 50px;
+justify-content: center;
 `
 
 const NavTab = styled(NavLink)`
@@ -45,6 +46,7 @@ const Toggler = styled.button`
 background: grey;
 font-size: 1.25em;
 width:50%;
+align-self: center;
 `
 
 class MobileNav extends React.Component{

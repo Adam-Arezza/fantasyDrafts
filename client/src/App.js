@@ -3,6 +3,7 @@ import Home from './components/Home'
 import Register from './components/Register'
 import Login from './components/Login'
 import Dashboard from './components/DashBoard'
+import axios from 'axios'
 import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 
 class App extends React.Component {
@@ -27,9 +28,24 @@ class App extends React.Component {
     localStorage.clear()
   }
 
+  componentDidMount() {
+    let token = localStorage.getItem('nhlDraftToken')
+    if(!token){
+      return
+    }
+    axios.defaults.headers.Authorization = token
+    axios.get("https://dbf851a3.ngrok.io/user")
+    .then(res => {
+      let data = res.data
+      if(data.success === true){
+        this.setState({loggedIn: true})
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
   render() {
-    //need to add navigation for logged in user or user dashboard
-    //need better solution for active pages
+    
     return (
       <div>
         <Router>

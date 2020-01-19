@@ -5,7 +5,6 @@ import DashNav from './DashNav'
 import DashLeagues from './DashLeagues'
 import DailyContainer from './DailyContainer'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Standings from './Standings'
 import Account from './Account'
 import NewLeague from './NewLeague'
 
@@ -22,6 +21,9 @@ const MainContainer = styled.div`
 display: flex;
 flex-direction: column;
 width: 80%;
+@media only screen and (max-width: 600px){
+    width: 100%;
+}
 `
 
 class Dashboard extends React.Component {
@@ -69,7 +71,6 @@ class Dashboard extends React.Component {
                             <Route path='/dashboard' exact><DailyContainer></DailyContainer></Route>
                             <Route path='/dashboard/leagues'><DashLeagues leagues={this.state.leagues} user={this.state.user}></DashLeagues></Route>
                             <Route path='/dashboard/account'><Account user={this.state.user}></Account></Route>
-                            <Route path='/dashboard/standings'><Standings></Standings></Route>
                             <Route path='/dashboard/new-league'><NewLeague user={this.state.user}></NewLeague></Route>
                         </Switch>
                     </MainContainer>
