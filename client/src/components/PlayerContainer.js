@@ -30,7 +30,6 @@ class PlayerContainer extends React.Component {
         super(props)
         this.state = {
             playersSorted: [],
-            more: false,
             playerCards: []
         }
         this.playerCards = this.playerCards.bind(this)

@@ -44,6 +44,7 @@ function LeagueCard(props) {
                     <Standings selectTeam={props.selectTeam} teams={props.details.Teams}></Standings>
                 </Details>
             </InnerCard>
+            <h2>Top Players this week</h2>
         </CardStyled>
     )
 }

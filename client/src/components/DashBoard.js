@@ -31,9 +31,7 @@ class Dashboard extends React.Component {
         super(props)
         this.state = {
             user: "",
-            leagues: [],
-            teams: [],
-            players: []
+            leagues: []
         }
     }
 
@@ -50,13 +48,6 @@ class Dashboard extends React.Component {
             .then(res => {
                 let user = res.data.user
                 this.setState({ user: user })
-            })
-            .catch(err => console.log(err))
-
-        axios.get('https://dbf851a3.ngrok.io/teams')
-            .then(res => {
-                let teams = res.data
-                this.setState({ teams: teams })
             })
             .catch(err => console.log(err))
     }
