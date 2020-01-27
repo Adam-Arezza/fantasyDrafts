@@ -12,6 +12,7 @@ const userRouter = require('./routes/user')
 const authenticator = require('./authenticate').authenticated
 const login = require('./routes/login').login
 const register = require('./routes/register').register
+const playerUpdater = require('./playerUpdates')
 
 mongoose.connect(dbConfig, {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
@@ -26,6 +27,8 @@ app.use('/user', authenticator, userRouter)
 app.use('/players', authenticator, playersRouter)
 app.use('/teams', authenticator, teamsRouter)
 app.use('/leagues', authenticator, leaguesRouter)
+
+playerUpdater.gameInterval = setInterval(() => playerUpdater.getGames(), 3000)
 
 var port = process.env.PORT || 5000
 app.listen(port, '0.0.0.0', () => console.log(`Listening on port: ${port}`))

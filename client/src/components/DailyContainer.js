@@ -34,7 +34,7 @@ class DailyContainer extends React.Component {
             year = 2019
             day = 2
         }
-        const gameDate = year + '-' + (month + 1) + '-' + (day - 1)
+        const gameDate = year + '-' + (month + 1) + '-' + (day - 10)
 
         axios.get("https://statsapi.web.nhl.com/api/v1/schedule?date=" + gameDate)
             .then(res => {

@@ -71,7 +71,7 @@ function Standings(props) {
         points.push(total)
     })
     let rows = teams.map((team, index) => {
-       return <TableRow key={index}>
+        return <TableRow key={index}>
             <TableCell>{index + 1}</TableCell>
             <TableCell onClick={props.selectTeam(team.Name)}>{team.Owner}</TableCell>
             <TableCell>{points[index]}</TableCell>
