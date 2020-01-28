@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PlayerCard from './PlayerCard'
+import {colors} from '../colors'
 
 const Container = styled.div`
     overflow-x: auto;
@@ -77,8 +78,11 @@ class PlayerContainer extends React.Component {
     playerCards() {
         let playerCards = this.state.playersSorted.map((player, id) => {
             if (player.goals + player.assists > 0) {
+                let teamColors = colors.find((color) => {
+                    return color.team === player.team
+                })
                 return (
-                    <PlayerCard playerData={player} key={id}></PlayerCard>
+                    <PlayerCard playerData={player} key={id} colors={teamColors}></PlayerCard>
                 )
             }
             return null
